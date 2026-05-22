@@ -7,7 +7,7 @@ This project demonstrates the deployment, configuration, operation, and monitori
 
 ## System Architecture
 
-<!-- Add System Architecture Image Here -->
+<img src="images/25.png" width="850">
 
 --- 
 
@@ -28,8 +28,8 @@ The project includes server setup, database configuration, osTicket installation
 - Created departments for structured ticket routing
 - Created agents and assigned them to departments
 - Created help topics to categorize user issues
-- Configured SLAs with different response times based on priority
-- Configured Gmail SMTP for email notifications
+- Set up SLAs with different response times based on priority
+- Integrated Gmail SMTP for email notifications
 - Opened test tickets through multiple simulated customers
 - Responded to tickets through agent accounts
 - Verified and closed resolved tickets through the admin account
@@ -52,160 +52,147 @@ The project includes server setup, database configuration, osTicket installation
 
 ---
 
-## Deployment Summary
+## Deployment Walkthrough
 
-### 1. Server and Web Stack Setup
+The following sections document the complete deployment, configuration, operation, and monitoring workflow of the osTicket environment.
 
-The project began with the installation and configuration of the core LAMP stack:
+## Step 1: Setup
 
-- Apache was installed and tested using the default Apache landing page.
-- MySQL was installed and configured.
-- PHP and required extensions were installed to satisfy osTicket requirements.
-- Apache was configured to serve the osTicket application.
+### Setup Apache Web Server
 
-### 2. Database Configuration
+Set up Apache on Ubuntu 24 to host the osTicket application locally.
 
-A dedicated MySQL database and user were created for osTicket. This avoids using the MySQL root account for the application and follows better security practice.
+<img src="images/1.png" width="850">
 
-Example database components:
+<br>
 
-```sql
-CREATE DATABASE osticket;
-CREATE USER 'osticket_user'@'localhost' IDENTIFIED BY 'password';
-GRANT ALL PRIVILEGES ON osticket.* TO 'osticket_user'@'localhost';
-FLUSH PRIVILEGES;
-```
+### MySQL Database Configuration
 
-### 3. osTicket Installation
+Created a dedicated MySQL database and user for osTicket deployment.
 
-osTicket was downloaded, extracted, and deployed under the Apache web directory. The installer was completed through the browser by configuring:
+<img src="images/2.png" width="850">
 
-- Helpdesk URL
-- Helpdesk name
-- Default email address
-- Admin user account
-- Database connection details
+<br>
 
-After installation, the setup directory was removed and configuration file permissions were secured.
+### osTicket Initial Configuration
 
----
+Assigned the administrator account, helpdesk name, and support email.
 
-## osTicket Configuration
+<img src="images/4.png" width="850">
 
-### Departments
+<br>
 
-Three departments were created to separate support responsibilities:
+### Customer Support Center
 
-- General IT Support
-- Network Operations
-- Security Operations
+Verified successful deployment through the customer support portal.
 
-Departments were used to route tickets based on the selected help topic.
-
-### Agents
-
-Multiple agents were created and assigned to departments. This allowed tickets to be viewed and handled by the correct support personnel based on department access.
-
-### Help Topics
-
-Help topics were created for common business support issues, including:
-
-- Account Access
-- Feedback
-- Network Issue
-- Password Reset
-- Printer Problem
-- Server Down
-
-Each help topic was mapped to an appropriate department and priority so that tickets could be routed consistently.
-
-### Service Level Agreements
-
-Four SLA levels were configured to simulate business response expectations:
-
-| SLA Name | Grace Period | Purpose |
-|---|---:|---|
-| Emergency | 1 hour | Critical issues such as server downtime |
-| High Priority | 4 hours | Serious issues affecting user access or security |
-| Normal Priority | 24 hours | Routine support requests |
-| Low Priority | 48 hours | Non-urgent requests and feedback |
-
-SLAs helped define when tickets should be treated as urgent or overdue.
-
-### Security Settings
-
-A lockout policy was configured for agent authentication. If failed login attempts exceed the defined limit, the account is temporarily locked for security.
-
-Configured example:
-
-```text
-Failed login attempts allowed: 5
-Lockout duration: 2 minutes
-```
+<img src="images/7.png" width="850">
 
 ---
 
-## Email Configuration
+## Step 2: Configuration of osTicket
 
-Gmail SMTP was configured so osTicket could send automatic email notifications to users.
+### Configure Service Level Agreements (SLAs)
 
-Email notifications were used for:
+Established four SLA levels with different response times according to ticket priority.
 
-- Ticket creation confirmation
-- Ticket number delivery
-- Ticket tracking link
-- Agent responses
-- Customer follow-ups
+<img src="images/8.png" width="850">
 
-This solved the issue of users needing a ticket number later by ensuring the ticket number and tracking link are delivered by email after ticket creation.
+<br>
+
+### Configure Login Lockout Policy
+
+Configured failed login lockout policies to improve authentication security.
+
+<img src="images/9.png" width="850">
+
+<br>
+
+### Create Departments
+
+Created support departments according to organizational responsibilities.
+
+<img src="images/10.png" width="850">
+
+<br>
+
+### Create Agents
+
+Created agents and assigned them to their respective departments.
+
+<img src="images/11.png" width="850">
+
+<br>
+
+### Configure Help Topics
+
+Implemented help topics to automatically route tickets to the correct departments.
+
+<img src="images/12.png" width="850">
 
 ---
 
-## Ticket Lifecycle Simulation
+## Step 3: Opening and Closing Tickets
 
-The project simulated a realistic support workflow:
+### Open Support Tickets
 
-1. A customer opened a support ticket.
-2. The customer selected a help topic.
-3. osTicket assigned the ticket to the correct department.
-4. An agent reviewed the ticket from the Agent Panel.
-5. The agent replied with a resolution or troubleshooting steps.
-6. The customer could view the ticket using their email and ticket number.
-7. The admin verified the resolution.
-8. The admin closed the ticket.
+Created multiple tickets using different customer accounts to simulate common IT support issues.
 
-Six tickets were created using different simulated customers to demonstrate high-volume queue handling and ticket categorization.
+<img src="images/13.png" width="850">
 
-Example simulated issues:
+<br>
 
-- Locked account
-- Bad UI/UX feedback
-- Slow network speed
-- Weak password reset request
-- Printer down
-- Website returning HTTP 500
+### Submit Ticket Attachments
+
+Users submitted tickets with descriptions and file attachments through the support portal.
+
+<img src="images/14.png" width="850">
+
+<br>
+
+### Automatic Email Notifications
+
+Integrated Gmail SMTP so customers automatically receive ticket confirmation emails and tracking details.
+
+<img src="images/15.png" width="850">
+
+<br>
+
+### Agent Ticket Responses
+
+Agents reviewed and responded to tickets assigned to their departments.
+
+<img src="images/16.png" width="850">
+
+<br>
+
+### Admin Ticket Management
+
+The administrator monitored ticket progress and closed tickets after verifying issue resolution.
+
+<img src="images/20.png" width="850">
 
 ---
 
-## Monitoring and Log Analysis
+## Step 4: Monitoring and Triaging Alerts
 
-The osTicket dashboard was used to monitor ticket activity, including:
+### System Warning Logs
 
-- Opened tickets
-- Assigned tickets
-- Closed tickets
-- Deleted tickets
-- Department-level statistics
-- Help-topic-level statistics
-- Agent activity
+Reviewed warning logs generated during simulated security and operational events.
 
-System logs were also reviewed to investigate warnings. Examples included:
+Warnings included:
+- Failed login attempts
+- Invalid CSRF token alerts caused by disabled browser cookies
 
-- Failed user login attempts
-- Invalid CSRF token warnings
-- Mailer errors
+Analyzed timestamps and IP addresses associated with alerts to determine whether events represented genuine threats or false positives.
 
-The warning logs were analyzed using timestamp and IP address to determine whether they represented suspicious activity, configuration issues, or false positives.
+<img src="images/23.png" width="850">
+
+<br>
+
+## Admin Dashboard
+
+<img src="images/21.png" width="850">
 
 ---
 
@@ -229,9 +216,4 @@ The warning logs were analyzed using timestamp and IP address to determine wheth
 
 ## Disclaimer
 
-This environment is:
-
-- Non-production
-- Isolated
-- Intended for educational and demonstration purposes
-- No real organizational data is used.
+This environment is isolated and non-production. The project is intended for educational and demonstration purposes, and no real organizational data is used.
