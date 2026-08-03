@@ -1,5 +1,4 @@
-# Enterprise Service Desk Platform: Production-Ready osTicket Deployment
-
+# Service Desk Infrastructure: Production osTicket Deployment
 A production-style help desk ticketing system built with **osTicket** for a fictional company, **Fly MSSP**.  
 This project demonstrates the deployment, configuration, operation, and monitoring of an IT support ticketing platform in a local virtualized Linux environment.
 
